@@ -244,7 +244,7 @@ lval* builtin_mult(lval* x, lval* y) {
 	lval_del(x);
 	return lval_float(xd * yd);
   }
-} 
+}
 
 lval* builtin_minus(lval* x, lval* y) {
   if (x->type == LVAL_NUM && y->type == LVAL_NUM) {
@@ -361,7 +361,7 @@ lval* builtin_op(lval* a, char* op) {
 	if (strcmp(op, "/") == 0) { x = builtin_div(x, y); }
 	if (strcmp(op, "%") == 0) { x = builtin_mod(x, y); }
 	if (strcmp(op, "^") == 0) { x = builtin_pow(x, y); }
-	
+
 	lval_del(y);
 
 	if (x->type == LVAL_ERR) {
@@ -380,21 +380,21 @@ int main(int argc, char** argv) {
   mpc_parser_t* Sexpr = mpc_new("sexpr");
   mpc_parser_t* Expr = mpc_new("expr");
   mpc_parser_t* Lispy = mpc_new("lispy");
-  
+
   mpca_lang(MPC_LANG_DEFAULT,
 			"floatnum : /-?[0-9]+\\.[0-9]+/ ;                                \
-             number   : /-?[0-9]+/ ;                                         \
-             symbol   : '+' | '-' | '*' | '/' | '%' | '^' ;                  \
-             sexpr    : '(' <expr>* ')' ;                                    \
-             expr     : <floatnum> | <number> | <symbol> | <sexpr> ;         \
-             lispy    : /^/ <expr>* /$/ ;                                    ",
+			 number   : /-?[0-9]+/ ;                                         \
+			 symbol   : '+' | '-' | '*' | '/' | '%' | '^' ;                  \
+			 sexpr    : '(' <expr>* ')' ;                                    \
+			 expr     : <floatnum> | <number> | <symbol> | <sexpr> ;         \
+			 lispy    : /^/ <expr>* /$/ ;                                    ",
 			Floatnum,
 			Number,
 			Symbol,
 			Sexpr,
 			Expr,
 			Lispy);
-  
+
   puts("benlisp Version 0.0.1");
   puts("Press Ctrl-C to exit\n");
 
@@ -412,11 +412,11 @@ int main(int argc, char** argv) {
 	  mpc_err_print(r.error);
 	  mpc_err_delete(r.error);
 	}
-	
+
 	free(input);
   }
 
   mpc_cleanup(6, Number, Floatnum, Symbol, Sexpr, Expr, Lispy);
-  
+
   return 0;
 }
